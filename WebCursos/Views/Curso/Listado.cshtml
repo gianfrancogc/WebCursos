@@ -1,0 +1,61 @@
+﻿@model List<Modelo.Curso>
+@{
+    ViewData["Title"] = "Listado";
+}
+
+<h1>Listado de cursos</h1>
+
+<a class="btn btn-warning" asp-area="" asp-controller="curso" asp-action="create">Crear Curso</a>
+
+
+<div class="container">
+
+    <table class="table table-striped">
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripcion</th>
+                <th>Categoria</th>
+                <th>Imagen</th>
+                <th>Opcs</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Precio.ToString("N")</td>
+                <td>@item.Descripcion</td>
+                <td>@item.Categoria.Nombre</td>
+                <td>
+                    @if (string.IsNullOrEmpty(item.Picture))
+                    {
+                        <small class="text-danger">Sin imagen</small>
+                    }
+                    else
+                    {
+                       <img  src="~/@item.Picture" width="150" height="150" />
+                        @*<small class="text-danger">Sin imagen</small>*@
+
+                    }
+
+                </td>
+                <td>
+                    <a href="~/curso/edit/@item.Id"  class="btn btn-primary"> Editar</a>
+                    <a  href="~/curso/remove/@item.Id"  onclick="return  confirm('Estas seguro que deseas eliminar')"  class="btn btn-danger"> Remover</a>
+
+                </td>
+            </tr>
+            }
+
+        </tbody>
+
+
+
+    </table>
+
+</div>
